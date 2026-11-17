@@ -1,0 +1,9 @@
+# Arquivos do IntelliJ
+.idea/
+
+# Arquivos compilados do Java
+out/
+
+# Arquivos de configuração do sistema
+.DS_Store
+Thumbs.db
