@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+// Inicia a execução do programa
 public class Main {
 
     public static int lerInteiro(Scanner entrada, String mensagem) {
@@ -15,11 +15,13 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        // Permite a leitura das informações digitadas pelo usuário
         Scanner entrada = new Scanner(System.in);
-
+        // Cria o usuário responsável pelo acesso ao sistema
         Usuario usuario = new Usuario("admin", "1234");
         Impressora impressora = new Impressora();
 
+        // Realiza a verificação de acesso com até três tentativas
         int tentativas = 3;
         boolean loginCorreto = false;
 
@@ -53,6 +55,7 @@ public class Main {
 
         int opcao = -1;
 
+        // Exibe as opções disponíveis no sistema
         while (opcao != 0) {
             System.out.println("\n===== MENU DA IMPRESSORA =====");
             System.out.println("1 - Configurar conexão");
@@ -71,6 +74,7 @@ public class Main {
 
             opcao = lerInteiro(entrada, "Escolha uma opção: ");
 
+            // Executa a operação escolhida pelo usuário
             switch (opcao) {
                 case 1:
                     if (!impressora.isConexaoAberta()) {
