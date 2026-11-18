@@ -1,3 +1,8 @@
+
+import java.util.Scanner;
+import java.util.InputMismatchException;
+import java.io.File;
+
 public class Impressora {
 
     // Informações utilizadas para configurar a conexão com a impressora
@@ -5,8 +10,7 @@ public class Impressora {
     String modelo = "i9";
     String conexao = "USB";
     int parametro = 0;
-    boolean conexaoAberta = false; // Indica se a conexão com a impressora está aberta
-
+    boolean conexaoAberta = false; // Indica se a conexão está aberta
 
     String assinaturaQRCode =
             "Q5DLkpdRijIRGY6YSSNsTWK1TztHL1vD0V1Jc4spo/CEUqICEb9SFy82ym8EhBRZjbh3btsZhF+sjHqEMR159i4agru9x6KsepK/q0" +
@@ -24,7 +28,6 @@ public class Impressora {
         System.out.println("Conexão configurada!");
     }
 
-
     public void abrirConexao() {
         try {
             int retorno = ImpressoraDLL.INSTANCE.AbreConexaoImpressora(tipo, modelo, conexao, parametro);
@@ -40,7 +43,8 @@ public class Impressora {
             System.out.println("Não foi possível carregar a DLL: " + e.getMessage());
         }
     }
-// Os demais métodos seguirão esse mesmo padrão, incluindo a verificação do retorno e o corte do papel (os que precisam de impressao).
+
+    // Os demais métodos seguem esse mesmo padrão, incluindo a verificação do retorno e o corte do papel quando necessário.
 
     public void fecharConexao() {
         if (!conexaoAberta) {
@@ -63,7 +67,6 @@ public class Impressora {
         }
     }
 
-
     public boolean verificarConexao() {
         if (!conexaoAberta) {
             System.out.println("Conexão fechada. Abra a conexão antes.");
@@ -71,7 +74,6 @@ public class Impressora {
         }
         return true;
     }
-
 
     public void imprimirTexto(String texto) {
         if (!verificarConexao()) {
@@ -99,7 +101,6 @@ public class Impressora {
             System.out.println("Não foi possível carregar a DLL: " + e.getMessage());
         }
     }
-
 
     public void imprimirQRCode(String dados, int tamanho, int correcao) {
         if (!verificarConexao()) {
@@ -132,7 +133,6 @@ public class Impressora {
             System.out.println("Não foi possível carregar a DLL: " + e.getMessage());
         }
     }
-
 
     public void imprimirCodigoBarras(int tipoCodigo, String dados, int altura, int largura, int hri) {
         if (!verificarConexao()) {
@@ -171,3 +171,170 @@ public class Impressora {
             System.out.println("Não foi possível carregar a DLL: " + e.getMessage());
         }
     }
+
+    public void imprimirXMLSAT(String caminho) {
+        File arquivo = new File("XMLSAT.xml");
+
+        if (!verificarConexao()) {
+            return;
+        }
+
+        try {
+            String xml = new String(
+                    java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(caminho)),
+                    java.nio.charset.StandardCharsets.UTF_8);
+
+            int retorno = ImpressoraDLL.INSTANCE.ImprimeXMLSAT(xml, 0);
+
+            if (retorno == 0) {
+                System.out.println("XML SAT enviado para impressão com sucesso!");
+
+                int retornoCorte = ImpressoraDLL.INSTANCE.Corte(5);
+
+                if (retornoCorte == 0) {
+                    System.out.println("Papel cortado com sucesso!");
+                } else {
+                    System.out.println("Erro ao cortar o papel: " + retornoCorte);
+                }
+
+            } else {
+                System.out.println("Erro na impressão do XML SAT: " + retorno);
+            }
+
+        } catch (UnsatisfiedLinkError e) {
+            System.out.println("Não foi possível carregar a DLL: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Erro ao ler o arquivo XML: " + e.getMessage());
+        }
+    }
+
+    public void imprimirXMLCancelamento(String caminho) {
+        File arquivo = new File("CANC_SAT.xml");
+
+        if (!verificarConexao()) {
+            return;
+        }
+
+        try {
+            String xml = new String(
+                    java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(caminho)),
+                    java.nio.charset.StandardCharsets.UTF_8);
+
+            int retorno = ImpressoraDLL.INSTANCE.ImprimeXMLCancelamentoSAT(xml, assinaturaQRCode, 0);
+
+            if (retorno == 0) {
+                System.out.println("XML de cancelamento enviado para impressão com sucesso!");
+
+                int retornoCorte = ImpressoraDLL.INSTANCE.Corte(5);
+
+                if (retornoCorte == 0) {
+                    System.out.println("Papel cortado com sucesso!");
+                } else {
+                    System.out.println("Erro ao cortar o papel: " + retornoCorte);
+                }
+
+            } else {
+                System.out.println("Erro na impressão do XML de cancelamento: " + retorno);
+            }
+
+        } catch (UnsatisfiedLinkError e) {
+            System.out.println("Não foi possível carregar a DLL: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Erro ao ler o arquivo XML: " + e.getMessage());
+        }
+    }
+
+    public void abrirGaveta() {
+        if (!verificarConexao()) {
+            return;
+        }
+
+        try {
+            int retorno = ImpressoraDLL.INSTANCE.AbreGaveta(0, 1, 5);
+            mostrarResultado(retorno);
+
+        } catch (UnsatisfiedLinkError e) {
+            System.out.println("Não foi possível carregar a DLL: " + e.getMessage());
+        }
+    }
+
+    public void sinalSonoro(int quantidade) {
+        if (!verificarConexao()) {
+            return;
+        }
+
+        if (quantidade < 1 || quantidade > 63) {
+            System.out.println("Quantidade de bips inválida.");
+            return;
+        }
+
+        try {
+            int retorno = ImpressoraDLL.INSTANCE.SinalSonoro(quantidade, 50, 5);
+            mostrarResultado(retorno);
+
+        } catch (UnsatisfiedLinkError e) {
+            System.out.println("Não foi possível carregar a DLL: " + e.getMessage());
+        }
+    }
+
+    public void avancarPapel(int linhas) {
+        if (!verificarConexao()) {
+            return;
+        }
+
+        if (linhas <= 0) {
+            System.out.println("Digite uma quantidade válida de linhas.");
+            return;
+        }
+
+        try {
+            int retorno = ImpressoraDLL.INSTANCE.AvancaPapel(linhas);
+            mostrarResultado(retorno);
+
+        } catch (UnsatisfiedLinkError e) {
+            System.out.println("Não foi possível carregar a DLL: " + e.getMessage());
+        }
+    }
+
+    public void consultarStatus(int opcao) {
+        if (!verificarConexao()) {
+            return;
+        }
+
+        if (opcao != 1 && opcao != 2 && opcao != 3 && opcao != 5) {
+            System.out.println("Opção de status inválida.");
+            return;
+        }
+
+        try {
+            int retorno = ImpressoraDLL.INSTANCE.StatusImpressora(opcao);
+
+            if (opcao == 3 && retorno == 5) {
+                System.out.println("A impressora possui papel.");
+            } else if (opcao == 3 && retorno == 6) {
+                System.out.println("O papel está acabando.");
+            } else if (opcao == 3 && retorno == 7) {
+                System.out.println("A impressora está sem papel.");
+            } else if (retorno == 0) {
+                System.out.println("Comando executado com sucesso.");
+            } else {
+                System.out.println("Código retornado: " + retorno);
+            }
+
+        } catch (UnsatisfiedLinkError e) {
+            System.out.println("Não foi possível carregar a DLL: " + e.getMessage());
+        }
+    }
+
+    public void mostrarResultado(int retorno) {
+        if (retorno == 0) {
+            System.out.println("Comando executado com sucesso!");
+        } else {
+            System.out.println("Erro ao executar comando. Código: " + retorno);
+        }
+    }
+
+    public boolean isConexaoAberta() {
+        return conexaoAberta;
+    }
+}
