@@ -143,9 +143,7 @@ public class Main {
 
                 case 7:
                     if (impressora.isConexaoAberta()) {
-                        System.out.print("Caminho do arquivo XML SAT: ");
-                        String arquivo = entrada.nextLine();
-                        impressora.imprimirXMLSAT(arquivo);
+                        impressora.imprimirXMLSAT();
                     } else {
                         System.out.println("Conexão fechada. Abra a conexão antes.");
                     }
@@ -153,9 +151,7 @@ public class Main {
 
                 case 8:
                     if (impressora.isConexaoAberta()) {
-                        System.out.print("Caminho do XML de cancelamento: ");
-                        String arquivo = entrada.nextLine();
-                        impressora.imprimirXMLCancelamento(arquivo);
+                        impressora.imprimirXMLCancelamento();
                     } else {
                         System.out.println("Conexão fechada. Abra a conexão antes.");
                     }

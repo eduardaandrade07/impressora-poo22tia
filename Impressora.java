@@ -172,17 +172,14 @@ public class Impressora {
         }
     }
 
-    public void imprimirXMLSAT(String caminho) {
-        File arquivo = new File("XMLSAT.xml");
-
-        if (!verificarConexao()) {
-            return;
-        }
+    public void imprimirXMLSAT() {
+        if (!verificarConexao()) return;
 
         try {
-            String xml = new String(
-                    java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(caminho)),
-                    java.nio.charset.StandardCharsets.UTF_8);
+            String xml = java.nio.file.Files.readString(
+                    java.nio.file.Paths.get("XMLSAT.xml"),
+                    java.nio.charset.StandardCharsets.UTF_8
+            );
 
             int retorno = ImpressoraDLL.INSTANCE.ImprimeXMLSAT(xml, 0);
 
@@ -196,7 +193,6 @@ public class Impressora {
                 } else {
                     System.out.println("Erro ao cortar o papel: " + retornoCorte);
                 }
-
             } else {
                 System.out.println("Erro na impressão do XML SAT: " + retorno);
             }
@@ -208,17 +204,17 @@ public class Impressora {
         }
     }
 
-    public void imprimirXMLCancelamento(String caminho) {
-        File arquivo = new File("CANC_SAT.xml");
+    public void imprimirXMLCancelamento() {
 
         if (!verificarConexao()) {
             return;
         }
 
         try {
-            String xml = new String(
-                    java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(caminho)),
-                    java.nio.charset.StandardCharsets.UTF_8);
+            String xml = java.nio.file.Files.readString(
+                    java.nio.file.Paths.get("CANC_SAT.xml"),
+                    java.nio.charset.StandardCharsets.UTF_8
+            );
 
             int retorno = ImpressoraDLL.INSTANCE.ImprimeXMLCancelamentoSAT(xml, assinaturaQRCode, 0);
 
