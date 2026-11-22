@@ -134,24 +134,13 @@ public class Impressora {
         }
     }
 
-    public void imprimirCodigoBarras(int tipoCodigo, String dados, int altura, int largura, int hri) {
-        if (!verificarConexao()) {
-            return;
-        }
-
-        if (tipoCodigo != 0 && tipoCodigo != 2 && tipoCodigo != 3 &&
-                tipoCodigo != 4 && tipoCodigo != 8) {
-            System.out.println("Tipo de código de barras inválido.");
-            return;
-        }
-
-        if (altura < 1 || altura > 255 || largura < 1 || largura > 6 || hri < 1 || hri > 4) {
-            System.out.println("Parâmetros inválidos.");
-            return;
-        }
+    public void imprimirCodigoBarras() {
+        if (!verificarConexao()) return;
 
         try {
-            int retorno = ImpressoraDLL.INSTANCE.ImpressaoCodigoBarras(tipoCodigo, dados, altura, largura, hri);
+            int retorno = ImpressoraDLL.INSTANCE.ImpressaoCodigoBarras(
+                    8, "{A012345678912", 100, 2, 4
+            );
 
             if (retorno == 0) {
                 System.out.println("Código de barras enviado para impressão com sucesso!");

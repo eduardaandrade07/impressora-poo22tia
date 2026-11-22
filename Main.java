@@ -126,16 +126,7 @@ public class Main {
 
                 case 6:
                     if (impressora.isConexaoAberta()) {
-                        int tipoCodigo = lerInteiro(entrada, "Tipo do código (0, 2, 3, 4 ou 8): ");
-
-                        System.out.print("Digite os dados do código: ");
-                        String dados = entrada.nextLine();
-
-                        int altura = lerInteiro(entrada, "Altura (1 a 255): ");
-                        int largura = lerInteiro(entrada, "Largura (1 a 6): ");
-                        int hri = lerInteiro(entrada, "HRI (1 a 4): ");
-
-                        impressora.imprimirCodigoBarras(tipoCodigo, dados, altura, largura, hri);
+                        impressora.imprimirCodigoBarras();
                     } else {
                         System.out.println("Conexão fechada. Abra a conexão antes.");
                     }

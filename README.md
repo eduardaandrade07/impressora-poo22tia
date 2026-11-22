@@ -2,7 +2,7 @@
 
 ## 📘 Sobre o Projeto
 
-Este projeto foi desenvolvido como atividade da disciplina de Programação Orientada à Objetos. Seu objetivo é controlar uma impressora  Elgin por meio de um programa desenvolvido em Java. O sistema possui login e um menu com diferentes funções, como impressão de textos, QR Codes, códigos de barras e arquivos XML. Também permite controlar recursos da impressora, como abertura da gaveta, emissão de sinais sonoros e avanço do papel.
+Este projeto foi desenvolvido como atividade da disciplina de Programação Orientada à Objetos no curso Técnico de Informática - UNASP. Seu objetivo é controlar uma impressora  Elgin por meio de um programa desenvolvido em Java. O sistema possui login e um menu com diferentes funções, como impressão de textos, QR Codes, códigos de barras e arquivos XML. Também permite controlar recursos da impressora, como abertura da gaveta, emissão de sinais sonoros e avanço do papel.
 
 ---
 
@@ -107,7 +107,7 @@ Durante o desenvolvimento, foram realizados testes para verificar o funcionament
 
 ## 📚 Documentação Adicional
 
-- Manual da impressora Elgin.
+- Manual da impressora Elgin. 
 - Documentação do SDK E1_Impressora.
 - Biblioteca JNA 5.15.0.
 
