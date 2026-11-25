@@ -2,7 +2,7 @@ import java.util.Scanner;
 // Inicia a execução do programa
 public class Main {
 
-    // Lê um número inteiro e trata entradas inválidas
+    // Lê um número inteiro e trata entradas inválidas, garantindo que informe um valor numérico válido antes de continuar
     public static int lerInteiro(Scanner entrada, String mensagem) {
         while (true) {
             System.out.print(mensagem);
