@@ -8,7 +8,7 @@ Este projeto foi desenvolvido como atividade da disciplina de Programação Orie
 
 ## 🧰 Tecnologias Utilizadas
 
-- **Java 25** – linguagem utilizada no desenvolvimento.
+- **Java 27** – linguagem utilizada no desenvolvimento.
 - **IntelliJ IDEA** – ambiente de desenvolvimento.
 - **JNA 5.15.0** – biblioteca utilizada para comunicação com a DLL.
 - **DLL E1_Impressora01** – biblioteca disponibilizada pela Elgin.
@@ -108,13 +108,13 @@ Durante o desenvolvimento, foram realizados testes para verificar o funcionament
 ## 📚 Documentação Adicional
 
 - Manual da impressora Elgin. 
-- Documentação do SDK E1_Impressora.
+- Documentação do SDK E1_Impressora. - https://elgindevelopercommunity.github.io/group___m1.html
 - Biblioteca JNA 5.15.0.
 
 ---
 
 ## 👥 Autores
 
-- Eduarda Alves de Sousa Barros
-- Eduarda Andrade Silva
-- João Pedro Gomes Augusto Gesteira
+- Eduarda Alves de Sousa Barros - https://github.com/adudwbarros
+- Eduarda Andrade Silva - https://github.com/eduardaandrade07
+- João Pedro Gomes Augusto Gesteira - https://github.com/Joaogesteira2709
